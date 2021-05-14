@@ -18,10 +18,13 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password):
+        """Creates and saves a new super user"""
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
-        user.save
+        user.save(using=self._db)
+        # using=self._db if you wont write test cases
+        # fail cliend.get(url) got 302s
 
         return user
 
