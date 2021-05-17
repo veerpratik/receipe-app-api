@@ -52,3 +52,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             return serializers.RecipeDetailSerializer
 
         return self.serializer_class
+
+    def perform_create(self, serializer):
+        """Create a new recipe
+           If you wont add it uou cant create recipe
+           object because user is missing """
+        serializer.save(user=self.request.user)
